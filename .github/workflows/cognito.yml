@@ -45,8 +45,8 @@ jobs:
 
     - name: Output User Pool ID
       id: user_pool_id
-      run: echo "User Pool ID - $(terraform output -raw user_pool_id)"
+      run: echo "User Pool ID - $(cd ./cognito/; terraform output -raw user_pool_id)"
 
     - name: Output Client ID
       id: client_id
-      run: echo "User Client ID - $(terraform output -raw client_id)"
+      run: echo "User Client ID - $(cd ./cognito/; terraform output -raw client_id)"
