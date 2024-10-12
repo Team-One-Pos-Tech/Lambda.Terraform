@@ -10,12 +10,10 @@ variable "functionName" {
 
 variable "clientId" {
   description = "Client ID for the Cognito User Pool"
-  default = "4g9i9qigcm7mq82s2r7v939uae"
 }
 
 variable "userPollId" {
   description = "Client Secret for the Cognito User Pool"
-  default = "us-east-1_DBk6tjf8T"
 }
 
 variable "regionDefault" {
