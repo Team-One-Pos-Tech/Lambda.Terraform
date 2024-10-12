@@ -42,3 +42,11 @@ jobs:
 
     - name: Terraform Apply
       run: cd ./cognito/; terraform apply -auto-approve -input=false
+
+    - name: Output User Pool ID
+      id: user_pool_id
+      run: echo "User Pool ID - $(terraform output -raw user_pool_id)"
+
+    - name: Output Client ID
+      id: user_pool_id
+      run: echo "User Pool ID - $(terraform output -raw client_id)"
