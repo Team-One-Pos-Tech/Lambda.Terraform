@@ -33,4 +33,6 @@ resource "aws_lambda_permission" "aws_lambda_api_gateway_permission" {
 
 output "aws_apigatewayv2_url" {
   value = aws_apigatewayv2_api.signin_lambda_api_gateway.api_endpoint
+  description = "Use this URL access Lambda with /Prod/SignIn"
+  sensitive = false
 }
