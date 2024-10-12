@@ -8,6 +8,8 @@ locals {
 resource "aws_lambda_function" "signin_lambda" {
   function_name = var.functionName
   role          = local.LabRoleArn
+  image_uri     = "986099789222.dkr.ecr.us-east-1.amazonaws.com/sign-in-registry:latest"
+  package_type  = "Image"
   timeout       = 15
 
   environment {
