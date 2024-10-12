@@ -1,5 +1,5 @@
 
-name: 'Terraform'
+name: 'Sign In Lambda Terraform'
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   sign-in-terraform:
-    name: 'Sign In Lambda Terraform'
+    name: 'Setting Infrastructure for Sign In Lambda'
     runs-on: ubuntu-latest
     environment: production
 

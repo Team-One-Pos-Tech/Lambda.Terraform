@@ -1,5 +1,5 @@
 
-name: 'Terraform'
+name: 'Cognito Terraform'
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   cognito-terraform:
-    name: 'Cognito Terraform'
+    name: 'Setting Infrastructure for Cognito'
     runs-on: ubuntu-latest
     environment: production
 
