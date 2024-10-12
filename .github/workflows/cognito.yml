@@ -29,16 +29,25 @@ jobs:
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Setup Terraform
+    - name: Check if User Pool exists
+      id: check_user_pool
+      run: |
+        aws cognito-idp list-user-pools --max-results 10 --region us-east-1 | grep -q 'snack-hub-users' || echo "User Pool does not exist"
+
+    - name: Setup Terraform if User Pool doesn't exist
+      if: steps.check_user_pool.outputs.lambda == 'User Pool does not exist'
       uses: hashicorp/setup-terraform@v1
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
     - name: Terraform Init
+      if: steps.check_user_pool.outputs.lambda == 'User Pool does not exist'
       run: cd ./cognito/; terraform init
 
     - name: Terraform Plan
+      if: steps.check_user_pool.outputs.lambda == 'User Pool does not exist'
       run: cd ./cognito/; terraform plan -input=false
 
     - name: Terraform Apply
+      if: steps.check_user_pool.outputs.lambda == 'User Pool does not exist'
       run: cd ./cognito/; terraform apply -auto-approve -input=false
