@@ -34,13 +34,7 @@ jobs:
       run: |
         aws lambda get-function --function-name signin_lambda --region us-east-1 || echo "Lambda does not exist"
 
-    - name: Apply Terraform if Lambda doesn't exist
-      if: steps.check_lambda.outputs.lambda == 'Lambda does not exist'
-      run: |
-        terraform init
-        terraform apply -auto-approve
-
-    - name: Setup Terraform
+    - name: Setup Terraform if Lambda doesn't exist
       if: steps.check_lambda.outputs.lambda == 'Lambda does not exist'
       uses: hashicorp/setup-terraform@v1
       with:

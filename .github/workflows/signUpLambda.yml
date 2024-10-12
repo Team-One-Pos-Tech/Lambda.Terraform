@@ -29,24 +29,33 @@ jobs:
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Setup Terraform
+    - name: Check if Lambda exists
+      id: check_lambda
+      run: |
+        aws lambda get-function --function-name signin_lambda --region us-east-1 || echo "Lambda does not exist"
+
+    - name: Setup Terraform if Lambda doesn't exist
+      if: steps.check_lambda.outputs.lambda == 'Lambda does not exist'
       uses: hashicorp/setup-terraform@v1
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
     - name: Terraform Init
+      if: steps.check_lambda.outputs.lambda == 'Lambda does not exist'
       run: cd ./signUp/; terraform init
       env:
         clientId: ${{ secrets.COGNITO_CLIENT_ID }}
         userPollId: ${{ secrets.COGNITO_USER_POOL_ID }}
 
     - name: Terraform Plan
+      if: steps.check_lambda.outputs.lambda == 'Lambda does not exist'
       run: cd ./signUp/; terraform plan -input=false
       env:
         clientId: ${{ secrets.COGNITO_CLIENT_ID }}
         userPollId: ${{ secrets.COGNITO_USER_POOL_ID }}
 
     - name: Terraform Apply
+      if: steps.check_lambda.outputs.lambda == 'Lambda does not exist'
       run: cd ./signUp/; terraform apply -auto-approve -input=false
       env:
         clientId: ${{ secrets.COGNITO_CLIENT_ID }}
