@@ -17,8 +17,10 @@ resource "aws_cognito_user_pool" "pool" {
 
 output "user_pool_id" {
   value = aws_cognito_user_pool.pool.id
+  description = "Use this ID in GitHub Secrets for Sign Lambdas functions"
 }
 
 output "client_id" {
   value = aws_cognito_user_pool_client.client.id
+  description = "Use this ID in GitHub Secrets for Sign Lambdas functions"
 }
