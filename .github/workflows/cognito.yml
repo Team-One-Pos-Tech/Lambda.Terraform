@@ -48,5 +48,5 @@ jobs:
       run: echo "User Pool ID - $(terraform output -raw user_pool_id)"
 
     - name: Output Client ID
-      id: user_pool_id
+      id: client_id
       run: echo "User Pool ID - $(terraform output -raw client_id)"
