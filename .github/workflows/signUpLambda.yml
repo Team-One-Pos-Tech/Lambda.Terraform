@@ -32,7 +32,7 @@ jobs:
     - name: Check if Lambda exists
       id: check_lambda
       run: |
-        aws lambda get-function --function-name signin_lambda --region us-east-1 || echo "Lambda does not exist"
+        aws lambda get-function --function-name signup_lambda --region us-east-1 || echo "Lambda does not exist"
 
     - name: Setup Terraform if Lambda doesn't exist
       if: steps.check_lambda.outputs.lambda == 'Lambda does not exist'
